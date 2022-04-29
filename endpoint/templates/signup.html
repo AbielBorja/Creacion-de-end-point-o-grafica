@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sign Up</title>
+	<link rel="stylesheet" href="{% static 'pages/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'pages/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'pages/css/login.css' %}">
+</head>
+
+<body>
+	<section class="prompt">
+		<h1>Sign up</h1>
+        {% if form.errors %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ form.errors }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+		<form action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
+			{{ form }}
+			<button type="submit">Sign up</button>
+
+		</form>
+		<hr>
+		<p class="help">Already have an account? <a id="linkLogin" href="/login">Sign in</a></p>
+		<a id="linkLogin" href='{% url "home"%}' role="link" class="link"> RETURN MENU </a>
+	</section>
+	<footer class="info">
+        <p>PIM - PAM - PUM</p>
+        <p>2022</p>
+    </footer>
+	<script src="{% static 'pages/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>APIs PIM - PAM - PUM</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'pages/css/stylesAPIs.css' %}" rel="stylesheet" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+            })
+        })()
+    </script>
+    <script>
+      google.charts.load('current', {packages: ['corechart', 'bar']});
+      google.charts.setOnLoadCallback(drawBasic);
+
+      function drawBasic() {
+            var data = google.visualization.arrayToDataTable([
+              ['Description', 'Values',],
+              ['Minutos Jugados', {{ datos.minutosJugados}}],
+              ['Score', {{ datos.score }}],
+            ]);
+            
+            var options = {
+              title: 'Profile Data',
+                chartArea: {width: '40%'},
+                hAxis: {
+                title: 'Data',
+                minValue: 0
+                },
+                width: 1500,
+                height: 400,
+                vAxis: {
+                title: 'Data'
+                }
+            };
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+          }
+    </script>
+    <script>
+      google.charts.load('current', {packages: ['corechart', 'bar']});
+      google.charts.setOnLoadCallback(drawBasic);
+
+      function drawBasic() {
+            var data = google.visualization.arrayToDataTable([
+              ['Description', 'Progress',],
+              ['Progress', {{ datos.progresoPorcentual}}],
+            ]);
+            
+            var options = {
+              title: 'Profile Data',
+              colors: ['green'],
+              chartArea: {width: '40%'},
+              hAxis: {
+              title: 'Percentage',
+              minValue: 0,
+              maxValue: 100
+              },
+              width: 1500,
+              height: 400,
+              vAxis: {
+              title: 'Progress'
+              }
+            };
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div_progress'));
+            chart.draw(data, options);
+          }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-lg-5">
+            <a class="navbar-brand" href="#!">PIM - PAM - PUM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href='{% url "APIs_pages" %}'>Back</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href='{% url "home" %}'>Home</a></li>
+                    <li><a class="nav-link active" aria-current="page"  href="{% url 'logout' %}">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header-->
+    <header class="py-5">
+        <div class="container px-lg-5">
+            <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+                <div class="m-4 m-lg-5">
+                    <h1 class="display-5 fw-bold">PIM - PAM - PUM</h1>
+                    <p class="fs-4"> Do you want to know your statistics? Enter your data and you will see your personal statistics. </p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Page Content-->
+    <section class="pt-4">
+        <div class="container px-lg-5">
+            <!-- Page Features-->
+            <form class="row g-3" action="" method="post">
+                {% csrf_token %}
+                <div class="col-md-4">
+                  <label for="validationDefault01" class="form-label">First name</label>
+                  <input type="text" class="form-control" id="validationDefault01" required name="first_name">
+                </div>
+                <div class="col-md-4">
+                  <label for="validationDefault02" class="form-label">Last name</label>
+                  <input type="text" class="form-control" id="validationDefault02" required>
+                </div>
+                <div class="col-md-4">
+                  <label for="validationDefaultUsername" class="form-label">Username</label>
+                  <div class="input-group">
+                    <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                    <input type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required name="username">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="validationDefault04" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="validationDefault03" required>
+                </div>
+                <div class="col-md-4">
+                  <label for="validationDefault04" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="validationDefault04" required name="password">
+                  </select>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                    <label class="form-check-label" for="invalidCheck2">
+                      Agree to terms and conditions
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit">GET info</button>
+                </div>
+                
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+              </form>
+    </section>
+
+    <div id="chart_div"></div>
+    <div id="chart_div_progress"></div>
+
+    <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+            {{ datos.usuario }}
+        </div>
+    </div>
+
+    <script src="{% static 'pages/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

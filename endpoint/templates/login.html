@@ -1,0 +1,51 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="{% static 'pages/css/styleForm.css' %}">
+    <link rel="stylesheet" href="{% static 'pages/css/bootstrap.min.css' %}">
+
+</head>
+
+<body>
+    
+    
+    <form class="formulario" action="" method="post">
+        {% csrf_token %}
+        <h1>Login</h1>
+        <div class="contenedor">
+            <div class="input-contenedor">
+                <i class="fas fa-envelope icon"></i>
+                <input id="username" name="username" type="text" autocomplete="username" required autofocus placeholder="username">
+            </div>
+            <div class="input-contenedor">
+                <i class="fas fa-key icon"></i>
+                <input id="current-password" name="password" type="password" autocomplete="current-password" required placeholder="Password">
+            </div>
+
+            <input type="submit" value="Login" class="button">
+            <br>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <p>Agree to our Terms of Use and Privacy Policy.</p>
+            <p>Don't have an account? <a class="link" href="/signup">Sign up </a></p>
+            <a href='{% url "home"%}' role="link" class="link"> RETURN MENU </a>
+        </div>
+    </form> 
+        
+    <script src="{% static 'pages/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
