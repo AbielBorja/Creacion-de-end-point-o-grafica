@@ -15,7 +15,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'pages/css/stylesAPIs.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'pages/css/style.css' %}">
-
+    
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         google.charts.load('current', {packages: ['corechart', 'bar']});
@@ -70,20 +70,27 @@
         chart.draw(data, options);
     }
     </script>
-
-
-
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-lg-5">
-            <a class="navbar-brand" href='{% url "home" %}'>PIM - PAM - PUM</a>
+            <a class="navbar-brand" href='#'>PIM - PAM - PUM</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href='{% url "home" %}'>Home</a></li>
+                    <li><a class="nav-link active" aria-current="page"  href="{% url 'logout' %}">Sign out</a></li>
+                    <li class="nav-link active" >{{ user }}</li>
                 </ul>
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -94,11 +101,29 @@
             <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
                 <div class="m-4 m-lg-5">
                     <h1 class="display-5 fw-bold">PIM - PAM - PUM</h1>
-                    <p class="fs-4">Here you can find all the global public score of users. </p>
+                    <p class="fs-4">Here you can find all the necessary information about the user who has correctly entered his credentials & find all the global public score of users. </p>
                 </div>
             </div>
         </div>
     </header>
+    <!-- Page Content-->
+    <section class="pt-4">
+        <div class="container px-lg-5">
+            <!-- Page Features-->
+            <div class="gx-lg-5">
+                <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="card bg-light border-0 h-100">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                            <h2 class="fs-4 fw-bold">Get info</h2>
+                            <p class="fs-4">User information</p>
+                            <a class="btn btn-primary btn-lg" href="{% url 'GET' %}">Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
@@ -135,9 +160,7 @@
 
     <div id="chart_div_questions"></div>
 
-
-
-
+    <script src="{% static 'pages/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 
 </html>
